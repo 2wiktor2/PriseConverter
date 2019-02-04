@@ -35,4 +35,10 @@ dependencies {
     // преобразовать объекты java в JSON и из него
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
+    // butterknife
+/*   implementation 'com.jakewharton:butterknife:10.0.0'
+   annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'*/
+    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
 }

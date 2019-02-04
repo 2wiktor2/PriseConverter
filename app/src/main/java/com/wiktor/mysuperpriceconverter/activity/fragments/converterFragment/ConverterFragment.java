@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import com.wiktor.mysuperpriceconverter.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ConverterFragment extends Fragment implements View.OnClickListener {
 
-    EditText editTextKurs;
-    EditText editTextConvertibleNumber;
-    TextView textViewResultOfExchange;
-    Button buttonCalculate;
+    @BindView(R.id.et_exchange_kurs) EditText editTextKurs;
+    @BindView(R.id.et_convertible_number) EditText editTextConvertibleNumber;
+    @BindView(R.id.tv_result_of_exchange)  TextView textViewResultOfExchange;
+    @BindView(R.id.b_calculate)  Button buttonCalculate;
 
     Double kurs;
     Double number;
@@ -36,10 +39,8 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editTextKurs = getActivity().findViewById(R.id.et_exchange_kurs);
-        editTextConvertibleNumber = getActivity().findViewById(R.id.et_convertible_number);
-        textViewResultOfExchange = getActivity().findViewById(R.id.tv_result_of_exchange);
-        buttonCalculate = getActivity().findViewById(R.id.b_calculate);
+
+        ButterKnife.bind(this, view);
 
         buttonCalculate.setOnClickListener(this);
 
