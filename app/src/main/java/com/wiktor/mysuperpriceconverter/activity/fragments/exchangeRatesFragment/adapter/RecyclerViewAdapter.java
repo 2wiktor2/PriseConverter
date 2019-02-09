@@ -1,5 +1,6 @@
 package com.wiktor.mysuperpriceconverter.activity.fragments.exchangeRatesFragment.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,11 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wiktor.mysuperpriceconverter.R;
+import com.wiktor.mysuperpriceconverter.activity.fragments.exchangeRatesFragment.Pojo;
+
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.ViewHolder> {
 
-    String[] strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    //String[] strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+private List<Pojo> listPogo;
+private Context context;
 
+
+    public RecyclerViewAdapter(List <Pojo> listPogo, Context context) {
+        this.listPogo = listPogo;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -24,12 +35,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.bind(strings[i]);
+        viewHolder.bind(listPogo.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return strings.length;
+        return listPogo.size();
     }
 
 
@@ -45,10 +56,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
             tv_2 = itemView.findViewById(R.id.tv_name_item);
         }
 
-        void bind(String string) {
+        void bind(Pojo pojo) {
 
             tv_1.setText("id = "+String.valueOf(getAdapterPosition()));
-            tv_2.setText(string);
+            tv_2.setText(pojo.getName());
 
         }
     }

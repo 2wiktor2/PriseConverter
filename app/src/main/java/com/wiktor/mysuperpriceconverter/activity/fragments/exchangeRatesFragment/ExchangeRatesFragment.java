@@ -9,13 +9,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.wiktor.mysuperpriceconverter.R;
+import com.wiktor.mysuperpriceconverter.activity.Constants;
 import com.wiktor.mysuperpriceconverter.activity.fragments.exchangeRatesFragment.adapter.RecyclerViewAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExchangeRatesFragment extends Fragment {
 
     RecyclerView recyclerView;
+
+    List <Pojo> listPogo;
 
     @Nullable
     @Override
@@ -36,11 +48,59 @@ public class ExchangeRatesFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
 
-/*        // не показывать клавиатуру
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);         */
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        Client client = retrofit.create(Client.class);
+        Call<List<Pojo>> call = client.reposForUser(Constants.USER);
+        call.enqueue(new Callback <List <Pojo>>() {
+            @Override
+            public void onResponse(Call <List <Pojo>> call, Response<List <Pojo>> response) {
+                List<Pojo> repos = response.body();
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(repos, getContext());
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call <List <Pojo>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Что-то не так с интернетом", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
