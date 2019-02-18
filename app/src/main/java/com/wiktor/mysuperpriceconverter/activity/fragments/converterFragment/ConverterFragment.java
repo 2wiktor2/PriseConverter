@@ -21,14 +21,18 @@ import butterknife.ButterKnife;
 
 public class ConverterFragment extends Fragment implements View.OnClickListener {
 
-    @BindView(R.id.et_exchange_kurs) EditText editTextKurs;
-    @BindView(R.id.et_convertible_number) EditText editTextConvertibleNumber;
-    @BindView(R.id.tv_result_of_exchange)  TextView textViewResultOfExchange;
-    @BindView(R.id.b_calculate)  Button buttonCalculate;
+    @BindView(R.id.et_exchange_kurs)
+    EditText editTextKurs;
+    @BindView(R.id.et_convertible_number)
+    EditText editTextConvertibleNumber;
+    @BindView(R.id.tv_result_of_exchange)
+    TextView textViewResultOfExchange;
+    @BindView(R.id.b_calculate)
+    Button buttonCalculate;
 
-    Double kurs;
-    Double number;
-    Double exchangeResult;
+    Double kurs = 1.0;
+    Double number = 1.0;
+    Double exchangeResult = 1.0;
 
     @Nullable
     @Override
@@ -44,6 +48,27 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
 
         buttonCalculate.setOnClickListener(this);
 
+        editTextConvertibleNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            // настроить setOnFocusChangeListener или  addTextChangedListener
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Toast.makeText(getActivity(), "ввод значения", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    if (!editTextKurs.getText().toString().equals("") && !editTextKurs.getText().toString().equals("")) {
+                        kurs = Double.parseDouble(editTextKurs.getText().toString());
+                        number = Double.parseDouble(editTextConvertibleNumber.getText().toString());
+                    } else {
+                        Toast.makeText(getActivity(), "Введите числа", Toast.LENGTH_SHORT).show();
+                    }
+                    exchangeResult = kurs * number;
+                    textViewResultOfExchange.setText(exchangeResult.toString());
+                }
+            }
+        });
+
+
         // не показывать клавиатуру
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -58,10 +83,10 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        calculate();
+        //calculate();
     }
 
-    public void getNumbers() {
+/*    public void getNumbers() {
         if (!editTextKurs.getText().toString().equals("") && !editTextKurs.getText().toString().equals("")) {
             kurs = Double.parseDouble(editTextKurs.getText().toString());
             number = Double.parseDouble(editTextConvertibleNumber.getText().toString());
@@ -69,11 +94,11 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
             Toast.makeText(getActivity(), "Введите числа", Toast.LENGTH_SHORT).show();
         }
 
-    }
+    }*/
 
-    public void calculate() {
+/*    public void calculate() {
         getNumbers();
         exchangeResult = kurs * number;
         textViewResultOfExchange.setText(exchangeResult.toString());
-    }
+    }*/
 }
