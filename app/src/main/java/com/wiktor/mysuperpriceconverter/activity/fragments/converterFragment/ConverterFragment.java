@@ -1,6 +1,5 @@
 package com.wiktor.mysuperpriceconverter.activity.fragments.converterFragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,7 +41,6 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         ButterKnife.bind(this, view);
 
         buttonCalculate.setOnClickListener(this);
@@ -69,9 +66,9 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
         });
 
 
-        // не показывать клавиатуру
+       /* // не показывать клавиатуру
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
     }
 
     @Override
@@ -86,19 +83,12 @@ public class ConverterFragment extends Fragment implements View.OnClickListener 
         //calculate();
     }
 
-/*    public void getNumbers() {
-        if (!editTextKurs.getText().toString().equals("") && !editTextKurs.getText().toString().equals("")) {
-            kurs = Double.parseDouble(editTextKurs.getText().toString());
-            number = Double.parseDouble(editTextConvertibleNumber.getText().toString());
+/*    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            // do something when check is selected
         } else {
-            Toast.makeText(getActivity(), "Введите числа", Toast.LENGTH_SHORT).show();
+            //do something when unchecked
         }
-
-    }*/
-
-/*    public void calculate() {
-        getNumbers();
-        exchangeResult = kurs * number;
-        textViewResultOfExchange.setText(exchangeResult.toString());
     }*/
 }

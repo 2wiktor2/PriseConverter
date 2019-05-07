@@ -1,4 +1,4 @@
-package com.wiktor.mysuperpriceconverter.activity.Activity;
+package com.wiktor.mysuperpriceconverter.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
-
 
 
     @Override
@@ -59,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDrawerStateChanged(int i) {
                 // Called when the drawer motion state changes. The new state will be one of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (Objects.requireNonNull(getCurrentFocus()).getWindowToken() != null){
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);}
+                if (Objects.requireNonNull(getCurrentFocus()).getWindowToken() != null) {
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
 
             }
         });
@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             new ConverterFragment())
                     .commit();
             navigationView.setCheckedItem(R.id.nav_converter);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -106,16 +115,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
     }
 
 

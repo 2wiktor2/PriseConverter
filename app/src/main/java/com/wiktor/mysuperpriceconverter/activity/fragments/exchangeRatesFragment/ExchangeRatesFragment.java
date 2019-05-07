@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.wiktor.mysuperpriceconverter.R;
 import com.wiktor.mysuperpriceconverter.activity.Constants;
-import com.wiktor.mysuperpriceconverter.activity.fragments.exchangeRatesFragment.adapter.RecyclerViewAdapter;
 
 import java.util.List;
 
